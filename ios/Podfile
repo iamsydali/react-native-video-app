@@ -7,6 +7,7 @@ install! 'cocoapods', :deterministic_uuids => false
 target 'reactNativeVideoApp' do
   pod 'react-native-video', :path => '../node_modules/react-native-video/react-native-video.podspec'
   pod 'RNFS', :path => '../node_modules/react-native-fs'
+  pod 'ffmpeg-kit-react-native', :subspecs => ['full-gpl-lts'], :podspec => '../node_modules/ffmpeg-kit-react-native/ffmpeg-kit-react-native.podspec'
   
   config = use_native_modules!
   

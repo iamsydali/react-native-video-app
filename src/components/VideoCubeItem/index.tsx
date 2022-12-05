@@ -10,8 +10,10 @@ import Video from 'react-native-video';
 const {width: screenW, height: screenH} = Dimensions.get('window');
 
 // const VIDEO_URL =
-//   'file:///Users/syedali/Library/Developer/CoreSimulator/Devices/F613183A-0365-4372-B845-161C49F1E20D/data/Containers/Data/Application/3F8396FF-510B-4B4A-96AB-BD7E973F0F54/tmp/SampleVideo_720x480_5mb.mp4';
+//   'file:///Users/syedali/Library/Developer/CoreSimulator/Devices/F613183A-0365-4372-B845-161C49F1E20D/data/Containers/Data/Application/022AABD9-476D-4F4C-B932-BB944B634AD3/tmp/SampleVideo_720x480_5mb.mp4';
 const VIDEO_URL = 'content://media/external/video/media/226';
+// const VIDEO_URL =
+//   'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4';
 
 const VideoCubeItem = ({
   source,
@@ -43,6 +45,7 @@ const VideoCubeItem = ({
           source={{uri: source || VIDEO_URL}} // Can be a URL or a local file.
           style={styles.video}
           repeat
+          onError={console.log}
           paused={isVideoPaused}
           fullScreen
         />
@@ -58,8 +61,8 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   video: {
-    height: screenH * 0.7,
+    height: screenH * 0.8,
     width: screenW,
-    backgroundColor: 'black',
+    backgroundColor: 'red',
   },
 });

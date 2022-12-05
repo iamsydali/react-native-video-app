@@ -8,8 +8,9 @@ import {
 } from 'react-native';
 import VideoTrimPicker from '../../components/VideoTrimPicker';
 import Video from 'react-native-video';
-import {uploadFile} from '../../helpers';
+// import {uploadFile} from '../../helpers';
 import RNFS from 'react-native-fs';
+import {deleteFile} from '../../helpers';
 
 const {width: screenW, height: screenH} = Dimensions.get('window');
 
@@ -21,8 +22,9 @@ const VideoTrimmer = () => {
   const videoPlayerRef = useRef();
 
   const onUpload = () => {
-    selectedVideoFile && uploadFile(selectedVideoFile); // Upload method
+    // selectedVideoFile && uploadFile(selectedVideoFile); // Upload method
     setSelectedVideoFile(undefined);
+    selectedVideoFile && deleteFile(selectedVideoFile.filepath);
   };
 
   return (
@@ -31,7 +33,9 @@ const VideoTrimmer = () => {
         <>
           <Video
             ref={(ref: undefined) => (videoPlayerRef.current = ref)} // Store reference
-            source={{uri: selectedVideoFile.filepath}} // Can be a URL or a local file.
+            source={{
+              uri: selectedVideoFile.filepath,
+            }} // Can be a URL or a local file.
             style={styles.video}
             controls
             repeat

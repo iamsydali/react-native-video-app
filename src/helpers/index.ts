@@ -23,9 +23,9 @@ export const uploadFile = async (file: RNFS.UploadFileItem) => {
         hello: 'world',
       },
     });
+    await deleteFile(file.filepath);
     if (response.statusCode === 200) {
       console.log('FILES UPLOADED!'); // response.statusCode, response.headers, response.body
-      await deleteFile(file.filepath);
     } else {
       console.log('SERVER ERROR');
     }

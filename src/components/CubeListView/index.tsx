@@ -23,7 +23,7 @@ const {width: screenW, height: screenH} = Dimensions.get('window');
 const height = screenH * 0.8;
 const width = screenW;
 
-const PERSPECTIVE = Platform.OS === 'ios' ? 2.38 : 1.7;
+const PERSPECTIVE = Platform.OS === 'ios' ? 2.38 : 1.9;
 const TR_POSITION = Platform.OS === 'ios' ? 2 : 1.5;
 
 export default class CubeListView extends React.Component<Props, State> {
