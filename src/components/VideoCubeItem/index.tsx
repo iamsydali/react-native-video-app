@@ -1,4 +1,4 @@
-import React, {useEffect, useRef, useState} from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import {
   StyleSheet,
   View,
@@ -7,9 +7,9 @@ import {
 } from 'react-native';
 import Video from 'react-native-video';
 
-const {width: screenW, height: screenH} = Dimensions.get('window');
+const { width: screenW, height: screenH } = Dimensions.get('window');
 
-const VIDEO_URL = 'content://media/external/video/media/226';
+const VIDEO_URL = 'https://res.cloudinary.com/facetally/video/upload/du_10,e_loop,eo_10,f_gif,q_auto:low,so_0,vs_60/v1658270939/wzrad4yreyux2ekg12bj.gif';
 
 const VideoCubeItem = ({
   source,
@@ -38,7 +38,7 @@ const VideoCubeItem = ({
         onPress={() => setIsVideoPaused(!isVideoPaused)}>
         <Video
           ref={(ref: undefined) => (videoPlayerRef.current = ref)}
-          source={{uri: source || VIDEO_URL}}
+          source={{ uri: source || VIDEO_URL }}
           style={styles.video}
           repeat
           onError={console.log}
