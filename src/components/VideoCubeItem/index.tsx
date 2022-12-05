@@ -63,6 +63,6 @@ const styles = StyleSheet.create({
   video: {
     height: screenH * 0.8,
     width: screenW,
-    backgroundColor: 'red',
+    backgroundColor: 'black',
   },
 });
