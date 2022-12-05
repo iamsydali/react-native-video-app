@@ -23,7 +23,7 @@ const {width: screenW, height: screenH} = Dimensions.get('window');
 const height = screenH * 0.8;
 const width = screenW;
 
-const PERSPECTIVE = Platform.OS === 'ios' ? 2.38 : 1.9;
+const PERSPECTIVE = Platform.OS === 'ios' ? 2.38 : 1.95;
 const TR_POSITION = Platform.OS === 'ios' ? 2 : 1.5;
 
 export default class CubeListView extends React.Component<Props, State> {
@@ -200,22 +200,17 @@ export default class CubeListView extends React.Component<Props, State> {
     };
 
     let translateX = scrollX.interpolate({
-      inputRange: padInput([pageX - this.width, pageX, pageX + this.width]),
+      inputRange: padInput([pageX - this.width, pageX + this.width]),
       outputRange: padOutput([
-        (-this.width - 1) / TR_POSITION,
-        0,
-        (this.width + 1) / TR_POSITION,
+        -this.width / TR_POSITION,
+        this.width / TR_POSITION,
       ]),
       extrapolate: 'clamp',
     });
 
     let translateY = scrollY.interpolate({
       inputRange: [pageY - this.height, pageY, pageY + this.height],
-      outputRange: [
-        (-this.height - 1) / TR_POSITION,
-        0,
-        (this.height + 1) / TR_POSITION,
-      ],
+      outputRange: [-this.height / TR_POSITION, 0, this.height / TR_POSITION],
       extrapolate: 'clamp',
     });
 
