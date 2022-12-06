@@ -13,7 +13,13 @@ interface Props {
   loop?: boolean;
   customHeight?: number;
   customWidth?: number;
-  callBackAfterSwipe?: (i: number) => void;
+  callBackAfterSwipe?: ({
+    direction,
+    index,
+  }: {
+    direction: string;
+    index: number;
+  }) => void;
 }
 interface State {
   isVerticalSwipe: boolean;
@@ -71,13 +77,20 @@ export default class CubeListView extends React.Component<Props, State> {
 
     const onDoneSwiping = (gestureState: PanResponderGestureState) => {
       let goTo = 0;
+      let swipeDirection = 'none';
       if (this.state.isVerticalSwipe) {
         goTo = this._closest(this._value.y + gestureState.dy);
         if (goTo) {
-          this._lastValue = {
+          const newValue = {
             x: this.pagesX[goTo],
             y: this.pagesY[goTo],
           };
+          if (Math.abs(this._lastValue.x) > Math.abs(newValue.x)) {
+            swipeDirection = 'down';
+          } else if (Math.abs(this._lastValue.x) < Math.abs(newValue.x)) {
+            swipeDirection = 'up';
+          }
+          this._lastValue = newValue;
           this._animatedValue.flattenOffset();
           Animated.spring(this._animatedValue, {
             toValue: {x: 0, y: this.pagesY[goTo]},
@@ -91,10 +104,16 @@ export default class CubeListView extends React.Component<Props, State> {
 
         goTo = this._closest(this._value.x + mod);
         if (goTo) {
-          this._lastValue = {
+          const newValue = {
             x: this.pagesX[goTo],
             y: this.pagesY[goTo],
           };
+          if (Math.abs(this._lastValue.x) > Math.abs(newValue.x)) {
+            swipeDirection = 'right';
+          } else if (Math.abs(this._lastValue.x) < Math.abs(newValue.x)) {
+            swipeDirection = 'left';
+          }
+          this._lastValue = newValue;
           this._animatedValue.flattenOffset();
           Animated.spring(this._animatedValue, {
             toValue: {x: this.pagesX[goTo], y: 0},
@@ -105,7 +124,10 @@ export default class CubeListView extends React.Component<Props, State> {
         }
       }
       if (this.props.callBackAfterSwipe) {
-        this.props.callBackAfterSwipe(goTo);
+        this.props.callBackAfterSwipe({
+          direction: swipeDirection,
+          index: goTo,
+        });
       }
     };
 
